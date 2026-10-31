@@ -4,7 +4,7 @@ author: |
   Anton Pühringer - 12414573 \newline
   Maximilian Trentini - 11916686 \newline
   Michele Fu Wang (Matr.-Nr. 12345678) \newline
-  Julian Bridi (Matr.-Nr. 12345678) \newline
+  Julian Bridi - 12301867 \newline
   Jonathan Gabriel (Matr.-Nr. 12345678)
 date: "05.11.2026"
 output: 
