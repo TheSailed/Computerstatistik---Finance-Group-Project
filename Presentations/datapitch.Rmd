@@ -3,9 +3,9 @@ title: "Datapitch - Finance"
 author: |
   Anton Pühringer - 12414573 \newline
   Maximilian Trentini - 11916686 \newline
-  Michele Fu Wang (Matr.-Nr. 12345678) \newline
+  Michele Fu Wang - 12347518 \newline
   Julian Bridi - 12301867 \newline
-  Jonathan Gabriel (Matr.-Nr. 12345678)
+  Jonathan Gabriel - 12319994
 date: "05.11.2026"
 output: 
   beamer_presentation:
@@ -89,7 +89,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Research Methodology and Questions
 
 - **Fama-French Stock Return Modelling:**
-  - **Question:** How much of the cross-sectional return variation in tech stocks can be explained by factor premia?
+  - **Question:** How much of the cross-sectional return variation in a selected portfolio consisting of 100 selected stocks can be explained by factor premia?
   - **Method:** OLS Regression and robust regression techniques applied to Fama-French type models
 
 - **Probability of Default (PD) Modelling:**
@@ -124,6 +124,3 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * **Market Data:** Yahoo! Finance. (2026). *Historical Equity Price Data*. \url{https://finance.yahoo.com/} (Fetched via R-Paket `quantmod`).
 
-## Appendix
-
-- Zusätzliche Tabellen, deskriptive Statistiken und Korrelationsmatrizen.
