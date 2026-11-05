@@ -24,77 +24,117 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Agenda
 
 - **Stock Return Analysis & Modelling (Fama-French)**
-  - Data and License
-  - Preliminary Data Explanation
-  - Planned Methods
-  - Research Question & Potential Challenges
-  
+  - Data, Research Question and Method
+  - The Fama-French Three-Factor Model
+  - First Look at the Data
+
 - **Default of Credit Card Clients (PD Modelling)**
-  - Data and License
-  - Preliminary Data Explanation
-  - Planned Methods
-  - Research Question & Potential Challenges
+  - Data, Research Question and Method
+  - First Look at the Data
 
-## Data Sources and Licenses
+- **Outlook and Potential Challenges**
 
-- **Stock Return Analysis and Modelling (Fama-French):**
-  - Fama-French daily 3-factor data (2020-01-01 to 2026-10-30) \newline
-  *Open academic license (Kenneth French Data Library)*
-  - Stock prices pulled from Yahoo Finance via `quantmod` (2020-01-01 to 2026-10-30) \newline
-  *Academic research use aligned with Yahoo-Finance Terms and Conditions*
+- **References** (sources, data periods and licenses)
 
-- **Default of Credit Card Clients:**
-  - Data on Default of Credit Card Clients in Taiwan (UCI ML Repository, published 2009) \newline
-  Licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**
-
-## Preliminary Data: Stock Return Analysis
+## Stock Return Analysis: Data, Question and Method
 \framesubtitle{Fama-French Factors and Asset Returns}
 
-::: {.columns}
-::: {.column width="50%"}
+:::: columns
+::: {.column width="48%"}
 **Core Variables:**
+
+- **Stock Returns ($R_i$):** daily returns of 99 US-listed stocks (Yahoo Finance)
 - **Risk-free Rate ($R_f$):** U.S. 1-Month T-Bill
 - **Market Excess Return ($R_m - R_f$)**
 - **Size Factor ($SMB$):** Small Minus Big
 - **Value Factor ($HML$):** High Minus Low
 
+\medskip
 **Target:**
+
 - Excess equity returns ($R_i - R_f$)
 :::
+::: {.column width="48%"}
+**Research Question:**
 
-::: {.column width="50%"}
-*Platzhalter für Micheles Fama-French Faktor-Plot (z. B. kumulierte Renditen).*
-:::
-:::
+How much of the cross-sectional return variation in a selected portfolio consisting of 100 selected stocks can be explained by factor premia?
 
-## Preliminary Data: Credit Card Defaults
+\medskip
+**Method:**
+
+OLS Regression and robust regression techniques applied to Fama-French type models
+:::
+::::
+
+## Method: the Fama–French Three-Factor Model
+\framesubtitle{Fama-French Stock Return Modelling}
+
+Fitted separately for each stock on daily returns:
+$$R_{i,t} - RF_t = \alpha_i + \beta_i\,(\text{Mkt-RF})_t + s_i\,\text{SMB}_t + h_i\,\text{HML}_t + \varepsilon_{i,t}$$
+$\alpha_i$: return the factors leave unexplained. $R^2$: share of return variance they explain.
+
+:::: columns
+::: {.column width="48%"}
+- **Mkt-RF, market premium:** value-weighted return of all US-listed stocks minus RF. $\beta_i$: the stock's market exposure.
+- **SMB, small minus big:** small-cap minus large-cap returns, the size premium. $s_i > 0$: moves like a small cap.
+:::
+::: {.column width="48%"}
+- **HML, high minus low book-to-market:** return of value minus growth stocks. $h_i > 0$: value tilt, $h_i < 0$: growth tilt.
+- **RF, risk-free rate:** one-month US Treasury bill. Subtracting it gives excess returns.
+:::
+::::
+
+## First Look at the Data
+\framesubtitle{Fama-French Factors and Asset Returns}
+
+:::: columns
+::: {.column width="48%"}
+![](figures/fig_ff_cumulative.pdf){width=100%}
+:::
+::: {.column width="48%"}
+![](figures/fig_stock_tails.pdf){width=100%}
+:::
+::::
+
+## Credit Card Defaults: Data, Question and Method
 \framesubtitle{UCI Taiwan Credit Card Dataset}
 
-::: {.columns}
-::: {.column width="50%"}
+:::: columns
+::: {.column width="48%"}
 **Features ($N = 30\,000$):**
+
 - **Demographics:** `LIMIT_BAL`, `SEX`, `EDUCATION`, `AGE`
 - **History:** Repayment status (`PAY_0` to `PAY_6`)
 - **Financials:** Bill statement amounts & previous payments
 
+\medskip
 **Target:**
+
 - `default.payment.next.month` (Binary, ~22% Defaults)
 :::
+::: {.column width="48%"}
+**Research Question:**
 
-::: {.column width="50%"}
-*Platzhalter für Micheles Default-Rate / Imbalance Plot.*
+How to efficiently detect probability of default and model it in a non balances dataset?
+
+\medskip
+**Method:**
+
+Probabilistic regression type models based on selected features
 :::
+::::
+
+## First Look at the Data
+\framesubtitle{UCI Taiwan Credit Card Dataset}
+
+:::: columns
+::: {.column width="48%"}
+![](figures/fig_default_rate.pdf){width=100%}
 :::
-
-## Research Methodology and Questions
-
-- **Fama-French Stock Return Modelling:**
-  - **Question:** How much of the cross-sectional return variation in a selected portfolio consisting of 100 selected stocks can be explained by factor premia?
-  - **Method:** OLS Regression and robust regression techniques applied to Fama-French type models
-
-- **Probability of Default (PD) Modelling:**
-  - **Question:** How to efficiently detect probability of default and model it in a non balances dataset?
-  - **Method:** Probabilistic regression type models based on selected features
+::: {.column width="48%"}
+![](figures/fig_history_collinearity.pdf){width=100%}
+:::
+::::
 
 ## Outlook and Potential Challenges
 
@@ -107,20 +147,21 @@ knitr::opts_chunk$set(echo = FALSE)
   - Potential Multicollinearity in the data and selection of key factors for modelling.
   
   
+
 ## References
 \footnotesize
 
 **Credit Card Default Dataset**
 
 * **Paper:** Yeh, I.-C., & Lien, C.-H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. *Expert Systems with Applications*, 36(2), 2473--2480. \url{https://doi.org/10.1016/j.eswa.2007.12.020}
-* **Repository:** Yeh, I.-C. (2009). *Default of Credit Card Clients* [Data set]. UCI Machine Learning Repository. \url{https://doi.org/10.24432/C55S3H} (CC BY 4.0).
+* **Repository:** Yeh, I.-C. (2009). *Default of Credit Card Clients* [Data set]. UCI Machine Learning Repository. \url{https://doi.org/10.24432/C55S3H} (CC BY 4.0). *Data period: April–September 2005.*
 
 **Fama-French Factor Data**
 
 * **Foundational Paper:** Fama, E. F., & French, K. R. (1993). Common risk factors in the returns on stocks and bonds. *Journal of Financial Economics*, 33(1), 3--56. \url{https://doi.org/10.1016/0304-405X(93)90023-5}
-* **Data Source:** French, K. R. (2026). *Data Library: Fama/French 3 Factors [Daily]*. Tuck School of Business, Dartmouth College. \url{http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html}
+* **Data Source:** French, K. R. (2026). *Data Library: Fama/French 3 Factors [Daily]*. Tuck School of Business, Dartmouth College. \url{http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html} \newline
+  *Data used: 2 Jan 2020 – 30 Sep 2026. Freely available; no formal license is stated.*
 
 **Financial Asset Pricing Data**
 
-* **Market Data:** Yahoo! Finance. (2026). *Historical Equity Price Data*. \url{https://finance.yahoo.com/} (Fetched via R-Paket `quantmod`).
-
+* **Market Data:** Yahoo! Finance. (2026). *Historical Equity Price Data*. \url{https://finance.yahoo.com/} (Fetched via R-Paket `quantmod`). *Data used: 2 Jan 2020 – 29 Oct 2026. Academic use under Yahoo's terms.*
